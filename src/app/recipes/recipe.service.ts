@@ -10,22 +10,29 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Seasoned Pork',
-      'A super tasy seasoned pork chop!',
-      'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_1280.jpg',
-      [new Ingredient('Meat', 1), new Ingredient('Black Pepper', 1)]
-    ),
-    new Recipe(
-      'Shrimp Salad',
-      'A healthy shrimp salad perfect for any occasion.',
-      'https://www.publicdomainpictures.net/pictures/120000/nahled/shrimp-salad-1434452515ZNJ.jpg',
-      [new Ingredient('Lettuce', 2), new Ingredient('Shrimp (Jumbo)', 6)]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Seasoned Pork',
+  //     'A super tasy seasoned pork chop!',
+  //     'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_1280.jpg',
+  //     [new Ingredient('Meat', 1), new Ingredient('Black Pepper', 1)]
+  //   ),
+  //   new Recipe(
+  //     'Shrimp Salad',
+  //     'A healthy shrimp salad perfect for any occasion.',
+  //     'https://www.publicdomainpictures.net/pictures/120000/nahled/shrimp-salad-1434452515ZNJ.jpg',
+  //     [new Ingredient('Lettuce', 2), new Ingredient('Shrimp (Jumbo)', 6)]
+  //   ),
+  // ];
+
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     // send array copy
